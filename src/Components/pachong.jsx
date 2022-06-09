@@ -2,7 +2,6 @@ import {chineseNamePath, englishNamePath, addressPath, BACKEND_BASE_URI} from '.
 
 
 const axios = require('axios');
-// const cheerio = require('cheerio');
 const chineseCharRegex = /\p{Unified_Ideograph}/u
 /* 
 NOTE: you need to go here and request access by clicking the button.
@@ -42,30 +41,6 @@ function Pachong(){
         .catch((error) => {
           console.log(error);
         });
-    //     try {
-    //     // const response = await axios.get(proxyurl + url)
-    //     // const data = response.data;
-
-    //     const parser = new DOMParser;
-    //     const doc = parser.parseFromString(response, "text/html");
-    //     console.log("Here is the html parsed" + doc)
-    //     let companyChineseNameArray = [... doc.querySelectorAll(chineseNamePath)]
-    // .map(i => i.innerHTML);
-    // let testInput = doc.querySelector(chineseNamePath)
-    // console.log("This is the chinese name path" + testInput)
-    //       console.log(companyChineseNameArray)
-    //     // const input = doc.querySelector('form.edit_checkout input[name="authenticity_token"]');
-    //     // const value = input.value;
-    //     // console.log(value);
-    //     // console.log(data)
-    //     //   const $ = cheerio.load(response.data);
-    //     // console.log("Hi" + response.data)
-    //     //   const noOfProperties = $('h1>strong').text();
-        
-    //     //   console.log(`${noOfProperties} are open for rent in ${postCode} postcode of Australia on Domain`);
-    //     } catch (e) {
-    //       console.error(`Error while addresses - ${e.message}`);
-    //     }
       })();
 }
 
