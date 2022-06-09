@@ -23,25 +23,7 @@ let companyAddressArray = [... document.querySelectorAll(englishNamePath)]
 //https://medium.com/@stefanhyltoft/scraping-html-tables-with-nodejs-request-and-cheerio-e3c6334f661b
 
 function Pachong(){
-    (async () => {
-        const args = process.argv.slice(2);
-        const pageId = args[0] || 46;
-        //http://lvcnn.com/list_group.php?id=46
-        const url = `//lvcnn.com/list_group.php?id=${pageId}`
-        axios.get(proxyurl + url)
-        .then((response) => {
-          console.log("Response: " + response.data)
-          const parser = new DOMParser;
-          const doc = parser.parseFromString(response.data, "text/html");
-          console.log("Here is the html parsed" + doc)
-          let companyChineseNameArray = [... doc.querySelectorAll("div.black_12_bold")]
-          .map(i => i.innerHTML);
-      console.log(companyChineseNameArray)  
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      })();
+    
 }
 
   export default Pachong

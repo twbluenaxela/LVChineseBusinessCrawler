@@ -1,13 +1,33 @@
-// Listen on a specific host via the HOST environment variable
-var host = process.env.HOST || '0.0.0.0';
-// Listen on a specific port via the PORT environment variable
-var port = process.env.PORT || 8080;
+const axios = require('axios');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+// const chineseCharRegex = /\p{Unified_Ideograph}/u;
+const chineseRegex = /[\u4e00-\u9fa5]/;
 
-var cors_proxy = require('cors-anywhere');
-cors_proxy.createServer({
-    originWhitelist: [], // Allow all origins
-    // requireHeader: ['origin', 'x-requested-with'],
-    // removeHeaders: ['cookie', 'cookie2']
-}).listen(port, host, function() {
-    console.log('Running CORS Anywhere on ' + host + ':' + port);
-});
+(async () => {
+    //this will return the html I want.. i think. at the very least it must be slice(2) for
+    //some special reason. 
+      const args = process.argv.slice(2);
+      //TODO: create an array that has the IDs of the pages I want, and loop through them.
+      const pageId = args[0] || 46;
+      //https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1
+      //http://lvcnn.com/list_group.php?id=46
+      //https://www.vegaschinaren.com/f.html
+      // const url = `//lvcnn.com/list_group.php?id=${pageId}`
+      const url = `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`
+      axios.get(url)
+      .then((response) => {
+        const dom = new JSDOM(response.data)
+        // const element = dom.window.document.querySelector("div.black_12_bold").innerHTML
+        // console.log(element)
+        let companyChineseNameArray = [... dom.window.document.querySelectorAll("div.black_12_bold")]
+        .map(i => i.innerHTML)
+        .filter(i => chineseRegex.test(i))
+    //     let companyChineseNameArray = [... doc.querySelectorAll("div.black_12_bold")]
+    //     .map(i => i.innerHTML);
+    console.log(companyChineseNameArray[1])  
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    })();
