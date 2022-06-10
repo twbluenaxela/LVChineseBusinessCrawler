@@ -2,6 +2,7 @@
   "name": "pachong",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://twbluenaxela.github.io",
   "resolutions": {
     "react-error-overlay": "6.0.9"
   },
@@ -23,7 +24,8 @@
     "stream": "^0.0.2"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "npm install && npm run build",
     "test": "react-scripts test",
@@ -50,14 +52,15 @@
     ]
   },
   "devDependencies": {
-    "react-error-overlay": "6.0.9",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
+    "gh-pages": "^4.0.0",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1",
+    "react-error-overlay": "6.0.9",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0"
