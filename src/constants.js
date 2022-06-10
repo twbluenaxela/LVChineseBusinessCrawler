@@ -16,3 +16,4 @@ export const chineseNamePath = "body > table > tbody > tr > td > table > tbody >
 export const englishNamePath = "body > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td > a > table > tbody > tr > td > div.black_12_normal"
 export const addressPath = "body > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td > a > table > tbody > tr > td > div.black_9_mini"
 
+export const CHINESE_CHAR_REGEX = /[\u4e00-\u9fa5]/;

@@ -25,6 +25,11 @@ let companyAddressArray = [... document.querySelectorAll(englishNamePath)]
 function Pachong(){
   const [data, setData] = React.useState(null);
   const [myPost, setMyPost] = React.useState(null)
+  const [urlToPost, setUrlToPost] = React.useState(null)
+  const [scrapedObjects, setScrapedObjects] = React.useState(null)
+
+  let testUrl = `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`
+  let myStringTestUrl = "https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1"
 
   React.useEffect(() => {
     fetch("http://localhost:3001/api")
@@ -32,17 +37,22 @@ function Pachong(){
       .then((data) => setData(data.message));
   }, []);
 
+  // React.useEffect(() => {
+  //   const article = { title: 'React POST Request Example' };
+  //   axios.post('https://reqres.in/api/articles', article)
+  //       .then(response => setMyPost({ articleId: response.data.id }));
+  // }, []);
+
   React.useEffect(() => {
-    const article = { title: 'React POST Request Example' };
-    axios.post('https://reqres.in/api/articles', article)
-        .then(response => setMyPost({ articleId: response.data.id }));
-  }, []);
+    axios.post("http://localhost:3001/scrape", testUrl)
+    .then((response) => setScrapedObjects(response.data))
+  }, [])
 
   return (
     <div className="pachong">
       <header className="App-header">
         <p>{!data ? "Loading..." : data}</p>
-        <p>{!myPost ? "Second loading..." : myPost.articleId}</p>
+        <p>{!scrapedObjects ? "Checking for data..." : scrapedObjects}</p>
       </header>
     </div>
   );
