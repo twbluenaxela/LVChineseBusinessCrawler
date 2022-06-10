@@ -69,7 +69,6 @@ function Pachong(){
     <div className="pachong">
       <header className="App-header">
         <p>{!data ? "Loading..." : data}</p>
-        <p>{!scrapedObjects ? "Checking..." : scrapedObjects[0].COMPANY_CHINESE_FIELD_NAME}</p>
         <form onSubmit={handleSubmit} >
           <label>LVCNN Crawler: 
             <br />
