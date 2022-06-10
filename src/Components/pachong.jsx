@@ -32,8 +32,10 @@ function Pachong(){
   let myStringTestUrl = "https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1"
   let urlObj = {url: `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`}
 
+  //change between localhost and the gitpod url
+  //https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/
   React.useEffect(() => {
-    fetch("http://localhost:3001/api")
+    fetch("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
@@ -45,8 +47,8 @@ function Pachong(){
   // }, []);
 
   React.useEffect(() => {
-    axios.post("http://localhost:3001/scrape", urlObj)
-    .then((response) => setScrapedObjects(response.data.data))
+    axios.post("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api/scrape", urlObj)
+    .then((response) => setScrapedObjects(response.data))
   }, [])
 
   return (

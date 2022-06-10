@@ -14,18 +14,18 @@ const webScraper = (url) => {
     //http://lvcnn.com/list_group.php?id=46
     //https://www.vegaschinaren.com/f.html
     // const url = `//lvcnn.com/list_group.php?id=${pageId}`
-    axios.get(url)
+    return axios.get(url)
     .then((response) => {
       const dom = new JSDOM(response.data)
-      // const element = dom.window.document.querySelector("div.black_12_bold").innerHTML
-      // console.log(element)
       let companyChineseNameArray = [... dom.window.document.querySelectorAll("div.black_12_bold")]
       .map(i => i.innerHTML)
       .filter(i => chineseRegex.test(i))
   //     let companyChineseNameArray = [... doc.querySelectorAll("div.black_12_bold")]
   //     .map(i => i.innerHTML);
-  console.log(companyChineseNameArray[1])  
-  return companyChineseNameArray[0]
+        console.log("webScraper finished scraping, here are the results....")
+        console.log(companyChineseNameArray[0])  
+        let firstOne = companyChineseNameArray[0]
+        return (firstOne)
     })
     .catch((error) => {
       console.log(error);
