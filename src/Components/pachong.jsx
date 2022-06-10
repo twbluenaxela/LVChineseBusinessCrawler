@@ -1,4 +1,4 @@
-import {COMPANY_CHINESE_FIELD_NAME, COMPANY_ENGLISH_FIELD_NAME, ADDRESS_FIELD_NAME, PHONE_NUMBER_FIELD_NAME} from '../constants'
+// import {COMPANY_CHINESE_FIELD_NAME, COMPANY_ENGLISH_FIELD_NAME, ADDRESS_FIELD_NAME, PHONE_NUMBER_FIELD_NAME} from '../constants'
 import React from 'react';
 
 const axios = require('axios');
@@ -16,10 +16,21 @@ is to use a proxy server like the one below
 
 //https://medium.com/@stefanhyltoft/scraping-html-tables-with-nodejs-request-and-cheerio-e3c6334f661b
 
+
+
 function Pachong(){
   const [data, setData] = React.useState(null);
   const [urlToPost, setUrlToPost] = React.useState(null)
   const [scrapedObjects, setScrapedObjects] = React.useState(null)
+
+  let dummyObj = [
+    {
+      COMPANY_CHINESE_FIELD_NAME: '聯合律師事務所',
+      COMPANY_ENGLISH_FIELD_NAME: 'Parke Law Firm',
+      ADDRESS_FIELD_NAME: '4455 S. Jones Blvd., #1 Las Vegas, NV 89103',
+      PHONE_NUMBER_FIELD_NAME: '702-321-1187'
+    }
+  ]
 
   let urlObj = {url: `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`}
 
@@ -33,10 +44,14 @@ function Pachong(){
   }, []);
 
 
+  // React.useEffect(() => {
+  //   axios.post("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api/scrape", urlObj)
+  //   .then((response) => setScrapedObjects(response.data))
+  // }, [])
+
   React.useEffect(() => {
-    axios.post("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api/scrape", urlObj)
-    .then((response) => setScrapedObjects(response.data))
-  }, [])
+    getScrapedObjects(urlToPost)
+  }, [urlToPost])
 
   function getScrapedObjects(url){
     axios.post("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api/scrape", {"url" : url})
@@ -45,13 +60,16 @@ function Pachong(){
 
   function handleSubmit(event){
     event.preventDefault()
-    setUrlToPost(event.currentTarget.elements.urlInput.value)
+    const submittedUrl = event.currentTarget.elements.urlInput.value
+    setUrlToPost(submittedUrl)
   }
+
 
   return (
     <div className="pachong">
       <header className="App-header">
         <p>{!data ? "Loading..." : data}</p>
+        <p>{!scrapedObjects ? "Checking..." : scrapedObjects[0].COMPANY_CHINESE_FIELD_NAME}</p>
         <form onSubmit={handleSubmit} >
           <label>LVCNN Crawler: 
             <br />
@@ -60,7 +78,7 @@ function Pachong(){
           <button type="submit">Submit</button>
         </form>
       </header>
-      <DynamicTable jsonData={scrapedObjects} />
+      <DynamicTable jsonData={!scrapedObjects ? dummyObj : scrapedObjects} />
     </div>
   );
 }
