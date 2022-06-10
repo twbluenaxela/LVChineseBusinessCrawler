@@ -26,7 +26,7 @@ function Pachong(){
   const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("https://localhost:3001/api")
+    fetch("http://localhost:3001/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);

@@ -2,6 +2,7 @@
 const logger = require('morgan');
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 
 // Create an Express application
 const app = express();
@@ -9,6 +10,13 @@ const app = express();
 // Configure the app port
 const port = process.env.PORT || 3001;
 app.set('port', port);
+
+
+const corsOption = {
+    origin: ['http://localhost:3001'],
+};
+app.use(cors());
+
 
 // Load middlewares
 app.use(logger('dev'));
