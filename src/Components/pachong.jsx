@@ -28,8 +28,9 @@ function Pachong(){
   const [urlToPost, setUrlToPost] = React.useState(null)
   const [scrapedObjects, setScrapedObjects] = React.useState(null)
 
-  let testUrl = `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`
+  // let testUrl = `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`
   let myStringTestUrl = "https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1"
+  let urlObj = {url: `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`}
 
   React.useEffect(() => {
     fetch("http://localhost:3001/api")
@@ -44,8 +45,8 @@ function Pachong(){
   // }, []);
 
   React.useEffect(() => {
-    axios.post("http://localhost:3001/scrape", testUrl)
-    .then((response) => setScrapedObjects(response.data))
+    axios.post("http://localhost:3001/scrape", urlObj)
+    .then((response) => setScrapedObjects(response.data.data))
   }, [])
 
   return (

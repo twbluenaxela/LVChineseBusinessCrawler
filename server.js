@@ -38,9 +38,13 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.post("/scrape", async (req, res) => {
   console.log("Got the request!")
-  console.log(req.body)
-  let fetchedResults = webScraper.webScraper(req.body)
-  res.send(fetchedResults)
+  // const JSONString = JSON.stringify(req.body)
+  console.log(req.body.url)
+  let urlToSendBack = req.body.url
+  let fetchedResults = webScraper.webScraper(urlToSendBack)
+  console.log("Sending it back!")
+  console.log(fetchedResults)
+  res.send({data: fetchedResults})
 }
 )
 
