@@ -1,4 +1,4 @@
-import {chineseNamePath, englishNamePath, addressPath, BACKEND_BASE_URI} from '../constants'
+import {COMPANY_CHINESE_FIELD_NAME, COMPANY_ENGLISH_FIELD_NAME, ADDRESS_FIELD_NAME, PHONE_NUMBER_FIELD_NAME} from '../constants'
 import React from 'react';
 
 const axios = require('axios');
@@ -13,14 +13,6 @@ is to use a proxy server like the one below
 //I will leave it here for reference...
 // const proxyurl = "https://cors-anywhere.herokuapp.com/";
 // const proxyLocalhostURL = "https://8080-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/"
-
-
-// let companyChineseNameArray = [... document.querySelectorAll(chineseNamePath)]
-// .map(i => i.innerHTML);
-let companyEnglishNameArray = [... document.querySelectorAll(englishNamePath)]
-.map(i => i.innerHTML);
-let companyAddressArray = [... document.querySelectorAll(englishNamePath)]
-.map(i => i.innerHTML);
 
 //https://medium.com/@stefanhyltoft/scraping-html-tables-with-nodejs-request-and-cheerio-e3c6334f661b
 
@@ -46,14 +38,70 @@ function Pachong(){
     .then((response) => setScrapedObjects(response.data))
   }, [])
 
+  function getScrapedObjects(url){
+    axios.post("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api/scrape", {"url" : url})
+    .then((response) => setScrapedObjects(response.data))
+  }
+
+  function handleSubmit(event){
+    event.preventDefault()
+    setUrlToPost(event.currentTarget.elements.urlInput.value)
+  }
+
   return (
     <div className="pachong">
       <header className="App-header">
         <p>{!data ? "Loading..." : data}</p>
-        <p>{!scrapedObjects ? "Checking for data..." : scrapedObjects[1].COMPANY_CHINESE_FIELD_NAME}</p>
+        <form onSubmit={handleSubmit} >
+          <label>LVCNN Crawler: 
+            <br />
+            <input type="url" id="urlInput" name="urlInput" placeholder='Enter url here...' />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
       </header>
+      <DynamicTable jsonData={scrapedObjects} />
     </div>
   );
+}
+
+
+function DynamicTable({jsonData}) {
+  //get table columns
+  const column = Object.keys(jsonData[0]);
+
+  //table heading
+  const ThData = () => {
+    return column.map((data) => {
+      return <th key={data}>{data}</th>
+    })
+  }
+
+  //table row
+  const tdData = () => {
+    return jsonData.map((data) => {
+      return(
+        <tr>
+          {
+            column.map((v) => {
+              return <td>{data[v]}</td>
+            })
+          }
+        </tr>
+      )
+    })
+  }
+
+  return (
+    <table className="table">
+      <thead>
+        <tr>{ThData()}</tr>
+      </thead>
+      <tbody>
+        {tdData()}
+      </tbody>
+    </table>
+  )
 }
 
   export default Pachong
