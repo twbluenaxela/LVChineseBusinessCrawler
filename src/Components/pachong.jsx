@@ -50,7 +50,7 @@ function Pachong(){
     <div className="pachong">
       <header className="App-header">
         <p>{!data ? "Loading..." : data}</p>
-        <p>{!scrapedObjects ? "Checking for data..." : scrapedObjects}</p>
+        <p>{!scrapedObjects ? "Checking for data..." : scrapedObjects[1].COMPANY_CHINESE_FIELD_NAME}</p>
       </header>
     </div>
   );
