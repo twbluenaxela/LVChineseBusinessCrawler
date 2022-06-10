@@ -24,17 +24,36 @@ let companyAddressArray = [... document.querySelectorAll(englishNamePath)]
 
 function Pachong(){
   const [data, setData] = React.useState(null);
+  const [myPost, setMyPost] = React.useState(null)
+  const [urlToPost, setUrlToPost] = React.useState(null)
+  const [scrapedObjects, setScrapedObjects] = React.useState(null)
+
+  // let testUrl = `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`
+  let myStringTestUrl = "https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1"
+  let urlObj = {url: `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`}
 
   React.useEffect(() => {
-    fetch("https://localhost:3001/api")
+    fetch("http://localhost:3001/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
+
+  // React.useEffect(() => {
+  //   const article = { title: 'React POST Request Example' };
+  //   axios.post('https://reqres.in/api/articles', article)
+  //       .then(response => setMyPost({ articleId: response.data.id }));
+  // }, []);
+
+  React.useEffect(() => {
+    axios.post("http://localhost:3001/scrape", urlObj)
+    .then((response) => setScrapedObjects(response.data.data))
+  }, [])
 
   return (
     <div className="pachong">
       <header className="App-header">
         <p>{!data ? "Loading..." : data}</p>
+        <p>{!scrapedObjects ? "Checking for data..." : scrapedObjects}</p>
       </header>
     </div>
   );

@@ -2,7 +2,10 @@
 const logger = require('morgan');
 const express = require('express');
 const path = require('path');
-
+const cors = require('cors');
+const webScraper = require('./webscraper');
+const { Console } = require('console');
+// console.log(typeof webScraper.webScraper())
 // Create an Express application
 const app = express();
 
@@ -10,8 +13,18 @@ const app = express();
 const port = process.env.PORT || 3001;
 app.set('port', port);
 
+
+const corsOption = {
+    origin: ['http://localhost:3001'],
+};
+
+
 // Load middlewares
 app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname)));
@@ -20,6 +33,21 @@ app.use(express.static(path.resolve(__dirname)));
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
+app.post("/scrape", async (req, res) => {
+  console.log("Got the request!")
+  // const JSONString = JSON.stringify(req.body)
+  console.log(req.body.url)
+  let urlToSendBack = req.body.url
+  let fetchedResults = webScraper.webScraper(urlToSendBack)
+  console.log("Sending it back!")
+  console.log(fetchedResults)
+  res.send({data: fetchedResults})
+}
+)
+
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
