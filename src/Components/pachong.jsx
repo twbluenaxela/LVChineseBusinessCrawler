@@ -9,8 +9,10 @@ You can't try to fetch info from here directly because it
 will send a CORS issue which is super annoying. So the fix
 is to use a proxy server like the one below
 */
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const proxyLocalhostURL = "https://8080-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/"
+//it seems I don't need to use the proxy now that I have cors setup in my express js.
+//I will leave it here for reference...
+// const proxyurl = "https://cors-anywhere.herokuapp.com/";
+// const proxyLocalhostURL = "https://8080-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/"
 
 
 // let companyChineseNameArray = [... document.querySelectorAll(chineseNamePath)]
@@ -24,27 +26,20 @@ let companyAddressArray = [... document.querySelectorAll(englishNamePath)]
 
 function Pachong(){
   const [data, setData] = React.useState(null);
-  const [myPost, setMyPost] = React.useState(null)
   const [urlToPost, setUrlToPost] = React.useState(null)
   const [scrapedObjects, setScrapedObjects] = React.useState(null)
 
-  // let testUrl = `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`
-  let myStringTestUrl = "https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1"
   let urlObj = {url: `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`}
 
   //change between localhost and the gitpod url
   //https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/
+  //this is only used for testing. I will delete it later.
   React.useEffect(() => {
     fetch("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
 
-  // React.useEffect(() => {
-  //   const article = { title: 'React POST Request Example' };
-  //   axios.post('https://reqres.in/api/articles', article)
-  //       .then(response => setMyPost({ articleId: response.data.id }));
-  // }, []);
 
   React.useEffect(() => {
     axios.post("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api/scrape", urlObj)

@@ -1,7 +1,6 @@
 const axios = require('axios');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-// const chineseCharRegex = /\p{Unified_Ideograph}/u;
 const chineseRegex = /[\u4e00-\u9fa5]/;
 
 const webScraper = (url) => {
@@ -20,8 +19,7 @@ const webScraper = (url) => {
       let companyChineseNameArray = [... dom.window.document.querySelectorAll("div.black_12_bold")]
       .map(i => i.innerHTML)
       .filter(i => chineseRegex.test(i))
-  //     let companyChineseNameArray = [... doc.querySelectorAll("div.black_12_bold")]
-  //     .map(i => i.innerHTML);
+
         console.log("webScraper finished scraping, here are the results....")
         console.log(companyChineseNameArray[0])  
         let firstOne = companyChineseNameArray[0]
@@ -33,6 +31,3 @@ const webScraper = (url) => {
 }
 
 exports.webScraper = webScraper;
-// (async () => {
-    
-//     })();
