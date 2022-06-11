@@ -34,11 +34,11 @@ function Pachong(){
 
   //change between localhost and the gitpod url
   //https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/
-  React.useEffect(() => {
-    fetch("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+  // React.useEffect(() => {
+  //   fetch("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api")
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data.message));
+  // }, []);
 
   // React.useEffect(() => {
   //   const article = { title: 'React POST Request Example' };
@@ -54,7 +54,6 @@ function Pachong(){
   return (
     <div className="pachong">
       <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
         <p>{!scrapedObjects ? "Checking for data..." : scrapedObjects}</p>
       </header>
     </div>
