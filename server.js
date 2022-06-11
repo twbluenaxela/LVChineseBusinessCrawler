@@ -5,12 +5,19 @@ const path = require('path');
 const cors = require('cors');
 const webScraper = require('./webscraper');
 const { Console } = require('console');
+// console.log(typeof webScraper.webScraper())
 // Create an Express application
 const app = express();
 
 // Configure the app port
 const port = process.env.PORT || 3001;
 app.set('port', port);
+
+
+const corsOption = {
+    origin: ['http://localhost:3001'],
+};
+
 
 // Load middlewares
 app.use(logger('dev'));
@@ -29,15 +36,14 @@ app.get("/api", (req, res) => {
 // Stop browser from sending requests to get the icon
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
-// Respond to the url and throw it in the webScraper module, which returns a JSON
-app.post("/api/scrape", async (req, res) => {
+app.post("/scrape", async (req, res) => {
   console.log("Got the request!")
   console.log(req.body.url)
   let urlToSendBack = req.body.url
-  let fetchedResults = await webScraper.webScraper(urlToSendBack)
+  let fetchedResults = webScraper.webScraper(urlToSendBack)
   console.log("Sending it back!")
   console.log(fetchedResults)
-  res.send(fetchedResults)
+  res.send({data: fetchedResults})
 }
 )
 
