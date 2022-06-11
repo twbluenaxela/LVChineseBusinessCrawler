@@ -54,7 +54,7 @@ function Pachong(){
   }, [urlToPost])
 
   function getScrapedObjects(url){
-    axios.post("http://localhost:3001/api/scrape", {"url" : url})
+    axios.post("/api/scrape", {"url" : url})
     .then((response) => setScrapedObjects(response.data))
   }
 
