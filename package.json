@@ -25,9 +25,8 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
     "dev": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "build": "nodemon --watch src/**/*.* -x \"npm run build\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start_cors": "node cors.js",

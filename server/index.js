@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api', require('./proxy-api.js'));
 
+
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../build')));
 
