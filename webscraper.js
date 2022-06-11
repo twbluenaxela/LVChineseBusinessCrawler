@@ -20,7 +20,7 @@ const webScraper = (url) => {
     //http://lvcnn.com/list_group.php?id=46
     //https://www.vegaschinaren.com/f.html
     // const url = `//lvcnn.com/list_group.php?id=${pageId}`
-    axios.get(url)
+    return axios.get(url)
     .then((response) => {
       const dom = new JSDOM(response.data)
       let companyInfoArray = [... dom.window.document.querySelectorAll(".newsbox_12_xline_black")]
