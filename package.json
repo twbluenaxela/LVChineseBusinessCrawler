@@ -2,7 +2,7 @@
   "name": "pachong",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://twbluenaxela.github.io",
+  "homepage": "https://twbluenaxela.github.io",
   "resolutions": {
     "react-error-overlay": "6.0.9"
   },
@@ -26,12 +26,19 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
-    "start": "react-scripts --openssl-legacy-provider start",
-    "buildClient": "npm install && npm run build",
+    "dev": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start_cors": "node cors.js",
-    "start_server": "node server.js"
+    "start": "node server/index.js",
+    "start:dev": "nodemon --ignore src/ --ignore build/ --server/index.js",
+    "build:dev": "nodemon --watch src/**/*.* -x \"npm run build\""
+  },
+  "watch": {
+    "test": {
+      "patterns": "src"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -63,6 +70,7 @@
     "react-error-overlay": "6.0.9",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
+    "nodemon": "^2.0.16",
     "url": "^0.11.0"
   }
 }

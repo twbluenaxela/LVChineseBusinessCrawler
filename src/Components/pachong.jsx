@@ -21,8 +21,9 @@ is to use a proxy server like the one below
 function Pachong(){
   const [data, setData] = React.useState(null);
   const [urlToPost, setUrlToPost] = React.useState(null)
-  const [scrapedObjects, setScrapedObjects] = React.useState(null)
+  const [scrapedObjects, setScrapedObjects] = React.useState({})
 
+  const [apiTrigger,setTrigger] = React.useState(0);
   let dummyObj = [
     {
       COMPANY_CHINESE_FIELD_NAME: '聯合律師事務所',
@@ -50,8 +51,10 @@ function Pachong(){
   // }, [])
 
   React.useEffect(() => {
-    getScrapedObjects(urlToPost)
-  }, [urlToPost])
+    if(urlToPost){
+      getScrapedObjects(urlToPost);
+    }
+  }, [apiTrigger])
 
   function getScrapedObjects(url){
     axios.post("/api/scrape", {"url" : url})
@@ -61,7 +64,8 @@ function Pachong(){
   function handleSubmit(event){
     event.preventDefault()
     const submittedUrl = event.currentTarget.elements.urlInput.value
-    setUrlToPost(submittedUrl)
+    setUrlToPost(submittedUrl);
+    setTrigger(+new Date());
   }
 
 
@@ -69,7 +73,7 @@ function Pachong(){
     <div className="pachong">
       <header className="App-header">
         <p>Instructions: Go to any category on this 
-          <a href="https://www.lvcnn.com/list.php">page</a>
+          <a href="https://www.lvcnn.com/list.php"> page</a>
           and copy the link at the top.
         </p>
         <form onSubmit={handleSubmit} >
@@ -80,7 +84,7 @@ function Pachong(){
           <button type="submit">Submit</button>
         </form>
       </header>
-      <DynamicTable jsonData={!scrapedObjects ? dummyObj : scrapedObjects} />
+      <DynamicTable jsonData={!scrapedObjects[0] ? dummyObj : scrapedObjects} />
     </div>
   );
 }
