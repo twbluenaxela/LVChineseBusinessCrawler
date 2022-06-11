@@ -82,7 +82,7 @@ function DynamicTable({jsonData}) {
   //table heading
   const ThData = () => {
     return column.map((data) => {
-      return <th key={data}>{data}</th>
+      return <th key={data} >{data}</th>
     })
   }
 
@@ -103,7 +103,7 @@ function DynamicTable({jsonData}) {
 
   return (
     <table className="table">
-      <thead>
+      <thead style={{backgroundColor : 'blue'}} >
         <tr>{ThData()}</tr>
       </thead>
       <tbody>
