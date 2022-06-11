@@ -69,7 +69,10 @@ function Pachong(){
     <div className="pachong">
       <header className="App-header">
         <p>{!data ? "Loading..." : data}</p>
-        <p>{!scrapedObjects ? "Checking..." : scrapedObjects[0].COMPANY_CHINESE_FIELD_NAME}</p>
+        <p>Instructions: Go to any category on this 
+          <a href="https://www.lvcnn.com/list.php">page</a>
+          and copy the link at the top.
+        </p>
         <form onSubmit={handleSubmit} >
           <label>LVCNN Crawler: 
             <br />
