@@ -25,7 +25,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname)));
 
@@ -34,11 +33,11 @@ app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
+// Stop browser from sending requests to get the icon
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.post("/scrape", async (req, res) => {
   console.log("Got the request!")
-  // const JSONString = JSON.stringify(req.body)
   console.log(req.body.url)
   let urlToSendBack = req.body.url
   let fetchedResults = webScraper.webScraper(urlToSendBack)

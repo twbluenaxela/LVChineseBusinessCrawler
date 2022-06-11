@@ -1,8 +1,14 @@
+//in the future I want to import all of these from constants.js
+const COMPANY_CHINESE_FIELD_NAME = "chinese_name";
+const COMPANY_ENGLISH_FIELD_NAME = "english_name";
+const ADDRESS_FIELD_NAME = "address";
+const PHONE_NUMBER_FIELD_NAME = "phone_number";
+
 const axios = require('axios');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-// const chineseCharRegex = /\p{Unified_Ideograph}/u;
 const chineseRegex = /[\u4e00-\u9fa5]/;
+
 
 const webScraper = (url) => {
 //this will return the html I want.. i think. at the very least it must be slice(2) for
@@ -17,15 +23,20 @@ const webScraper = (url) => {
     axios.get(url)
     .then((response) => {
       const dom = new JSDOM(response.data)
-      // const element = dom.window.document.querySelector("div.black_12_bold").innerHTML
-      // console.log(element)
-      let companyChineseNameArray = [... dom.window.document.querySelectorAll("div.black_12_bold")]
-      .map(i => i.innerHTML)
-      .filter(i => chineseRegex.test(i))
-  //     let companyChineseNameArray = [... doc.querySelectorAll("div.black_12_bold")]
-  //     .map(i => i.innerHTML);
-  console.log(companyChineseNameArray[1])  
-  return companyChineseNameArray[0]
+      let companyInfoArray = [... dom.window.document.querySelectorAll(".newsbox_12_xline_black")]
+      .map(i =>  ({ 
+      COMPANY_CHINESE_FIELD_NAME : i.querySelector("div.black_12_bold").innerHTML,
+      COMPANY_ENGLISH_FIELD_NAME : i.querySelector("div.black_12_normal").innerHTML,
+      ADDRESS_FIELD_NAME : i.querySelector("div.black_9_mini").innerHTML,
+      PHONE_NUMBER_FIELD_NAME : i.querySelector("td.black_12_normal").innerHTML
+    }))
+      //only give back the ones with Chinese names.
+      // .filter(i => chineseRegex.test(i))
+
+        console.log("webScraper finished scraping, here is the first one in the array....")
+        console.log(companyInfoArray[0])  
+        // let firstOne = companyInfoArray[2]
+        return (companyInfoArray)
     })
     .catch((error) => {
       console.log(error);
@@ -33,6 +44,3 @@ const webScraper = (url) => {
 }
 
 exports.webScraper = webScraper;
-// (async () => {
-    
-//     })();
