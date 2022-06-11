@@ -37,11 +37,11 @@ function Pachong(){
   //change between localhost and the gitpod url
   //https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/
   //this is only used for testing. I will delete it later.
-  React.useEffect(() => {
-    fetch("http://localhost:3001/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+  // React.useEffect(() => {
+  //   fetch("http://localhost:3001/api")
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data.message));
+  // }, []);
 
 
   // React.useEffect(() => {
@@ -68,7 +68,6 @@ function Pachong(){
   return (
     <div className="pachong">
       <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
         <p>Instructions: Go to any category on this 
           <a href="https://www.lvcnn.com/list.php">page</a>
           and copy the link at the top.
