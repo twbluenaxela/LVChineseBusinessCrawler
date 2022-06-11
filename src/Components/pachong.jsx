@@ -37,18 +37,6 @@ function Pachong(){
 
   //change between localhost and the gitpod url
   //https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/
-  //this is only used for testing. I will delete it later.
-  // React.useEffect(() => {
-  //   fetch("http://localhost:3001/api")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data.message));
-  // }, []);
-
-
-  // React.useEffect(() => {
-  //   axios.post("https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/api/scrape", urlObj)
-  //   .then((response) => setScrapedObjects(response.data))
-  // }, [])
 
   React.useEffect(() => {
     if(urlToPost){
@@ -64,8 +52,8 @@ function Pachong(){
   function handleSubmit(event){
     event.preventDefault()
     const submittedUrl = event.currentTarget.elements.urlInput.value
-    setUrlToPost(submittedUrl);
     setTrigger(+new Date());
+    setUrlToPost(submittedUrl);
   }
 
 
