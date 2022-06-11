@@ -2,7 +2,6 @@
 import React from 'react';
 
 const axios = require('axios');
-const chineseCharRegex = /\p{Unified_Ideograph}/u
 /* 
 NOTE: you need to go here and request access by clicking the button.
 You can't try to fetch info from here directly because it
@@ -19,10 +18,8 @@ is to use a proxy server like the one below
 
 
 function Pachong(){
-  const [data, setData] = React.useState(null);
   const [urlToPost, setUrlToPost] = React.useState(null)
   const [scrapedObjects, setScrapedObjects] = React.useState({})
-
   const [apiTrigger,setTrigger] = React.useState(0);
   let dummyObj = [
     {
@@ -52,8 +49,8 @@ function Pachong(){
   function handleSubmit(event){
     event.preventDefault()
     const submittedUrl = event.currentTarget.elements.urlInput.value
-    setTrigger(+new Date());
     setUrlToPost(submittedUrl);
+    setTrigger(+new Date());
   }
 
 
@@ -61,7 +58,7 @@ function Pachong(){
     <div className="pachong">
       <header className="App-header">
         <p>Instructions: Go to any category on this 
-          <a href="https://www.lvcnn.com/list.php"> page</a>
+          <a href="https://www.lvcnn.com/list.php"> page </a>
           and copy the link at the top.
         </p>
         <form onSubmit={handleSubmit} >
