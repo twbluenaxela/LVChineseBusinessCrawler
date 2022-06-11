@@ -38,7 +38,7 @@ function Pachong(){
   //https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/
   //this is only used for testing. I will delete it later.
   React.useEffect(() => {
-    fetch("https://localhost:3001/api")
+    fetch("http://localhost:3001/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
@@ -54,7 +54,7 @@ function Pachong(){
   }, [urlToPost])
 
   function getScrapedObjects(url){
-    axios.post("https://localhost:3001/api/scrape", {"url" : url})
+    axios.post("http://localhost:3001/api/scrape", {"url" : url})
     .then((response) => setScrapedObjects(response.data))
   }
 
