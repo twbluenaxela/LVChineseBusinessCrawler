@@ -2,10 +2,6 @@
   "name": "pachong",
   "version": "0.1.0",
   "private": true,
-  "engines" : {
-    "node" : "16.15.0",
-    "npm" : "8.5.5"
-  },
   "resolutions": {
     "react-error-overlay": "6.0.9"
   },
@@ -34,8 +30,6 @@
     "eject": "react-scripts eject",
     "start_cors": "node cors.js",
     "start": "node server/index.js",
-    "start:dev": "nodemon --ignore src/ --ignore build/ --server/index.js",
-    "build:dev": "nodemon --watch src/**/*.* -x \"npm run build\""
   },
   "watch": {
     "test": {
