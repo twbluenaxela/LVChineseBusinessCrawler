@@ -25,7 +25,7 @@
   "scripts": {
     "predeploy": "npm install",
     "dev": "react-scripts --openssl-legacy-provider start",
-    "build": "npm install && node server/index.js",
+    "clientbuild": "npm install && node server/index.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start_cors": "node cors.js",
