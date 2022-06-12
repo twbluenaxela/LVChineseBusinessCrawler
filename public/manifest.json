@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "爬蟲",
+  "name": "拉斯維加斯商業地區的小爬蟲",
   "icons": [
     {
       "src": "favicon.ico",
