@@ -60,7 +60,7 @@ function Pachong(){
         <h1>拉斯維加斯商業地區爬蟲</h1>
         <h2>使用説明 Instructions</h2>
         <p>先訪問這個網站 First visit this website
-        <a href="https://www.lvcnn.com/list.php"> LVCNN </a>
+        <a href="https://www.lvcnn.com/list.php" target="_blank" > LVCNN </a>
         </p>
         <p>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising) </p>
         <p>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</p>
