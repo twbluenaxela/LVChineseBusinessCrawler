@@ -57,10 +57,14 @@ function Pachong(){
   return (
     <div className="pachong">
       <header className="App-header">
-        <p>Instructions: Go to any category on this 
-          <a href="https://www.lvcnn.com/list.php"> page </a>
-          and copy the link at the top.
+        <h1>拉斯維加斯商業地區爬蟲</h1>
+        <h2>使用説明 Instructions</h2>
+        <p>先訪問這個網站 First visit this website
+        <a href="https://www.lvcnn.com/list.php"> LVCNN </a>
         </p>
+        <p>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising) </p>
+        <p>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</p>
+        <p>Then copy the url at the top, and put it in the input box below</p>
         <form onSubmit={handleSubmit} >
           <label>LVCNN Crawler: 
             <br />
