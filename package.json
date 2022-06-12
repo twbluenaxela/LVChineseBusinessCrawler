@@ -27,6 +27,7 @@
     "dev": "react-scripts --openssl-legacy-provider start",
     "clientbuild": "npm install && node server/index.js",
     "test": "react-scripts test",
+    "build": "react-scripts --openssl-legacy-provider build",
     "eject": "react-scripts eject",
     "start_cors": "node cors.js",
     "start": "node server/index.js"

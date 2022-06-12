@@ -107,7 +107,7 @@ function DynamicTable({jsonData}) {
 
   return (
     <table className="table">
-      <thead style={{backgroundColor : 'blue'}} >
+      <thead style={{backgroundColor : '#ADD8E6'}} >
         <tr>{ThData()}</tr>
       </thead>
       <tbody>
