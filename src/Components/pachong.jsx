@@ -1,6 +1,5 @@
 // import {COMPANY_CHINESE_FIELD_NAME, COMPANY_ENGLISH_FIELD_NAME, ADDRESS_FIELD_NAME, PHONE_NUMBER_FIELD_NAME} from '../constants'
 import React from 'react';
-
 const axios = require('axios');
 /* 
 NOTE: you need to go here and request access by clicking the button.
@@ -18,7 +17,7 @@ is to use a proxy server like the one below
 
 
 function Pachong(){
-  const [urlToPost, setUrlToPost] = React.useState(null)
+  const [urlToPost, setUrlToPost] = React.useState("")
   const [scrapedObjects, setScrapedObjects] = React.useState({})
   const [apiTrigger,setTrigger] = React.useState(0);
   let dummyObj = [
@@ -59,12 +58,12 @@ function Pachong(){
       <header className="App-header">
         <h1>拉斯維加斯商業地區爬蟲</h1>
         <h2>使用説明 Instructions</h2>
-        <p>先訪問這個網站 First visit this website
+        <p className="text-3xl font-bold underline" >先訪問這個網站 First visit this website
         <a href="https://www.lvcnn.com/list.php" target="_blank" > LVCNN </a>
         </p>
         <p>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising) </p>
         <p>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</p>
-        <p>Then copy the url at the top, and put it in the input box below</p>
+        <p className='text-blue-400 font-extrabold'>Then copy the url at the top, and put it in the input box below</p>
         <form onSubmit={handleSubmit} >
           <label>LVCNN Crawler: 
             <br />
