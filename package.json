@@ -18,6 +18,7 @@
     "jsdom": "^19.0.0",
     "morgan": "^1.10.0",
     "node": "^17.7.2",
+    "postcss-cli": "^9.1.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "4.0.3",
@@ -28,11 +29,11 @@
     "dev": "react-scripts --openssl-legacy-provider start",
     "clientbuild": "npm install && node server/index.js",
     "test": "react-scripts test",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "build:css": "postcss src/index.css -o dist/output.css",
+    "build": "npm run build:css && react-scripts --openssl-legacy-provider build",
+    "build:css": "postcss src/index.css -o src/dist/output.css",
     "eject": "react-scripts eject",
     "start_cors": "node cors.js",
-    "start": "node server/index.js"
+    "start": "npm run build:css && node server/index.js"
   },
   "watch": {
     "test": {
