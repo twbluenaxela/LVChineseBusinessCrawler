@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
 import App from './App'
-import "./index.css"
+import "./dist/output.css"
 
 ReactDOM.render(
   <App />, 
