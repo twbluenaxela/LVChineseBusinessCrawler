@@ -20,6 +20,7 @@ function Pachong(){
   const [urlToPost, setUrlToPost] = React.useState("")
   const [scrapedObjects, setScrapedObjects] = React.useState({})
   const [apiTrigger,setTrigger] = React.useState(0);
+  const [instructionsTrigger, setInstructionsTrigger] = React.useState(false)
   let dummyObj = [
     {
       COMPANY_CHINESE_FIELD_NAME: '聯合律師事務所',
@@ -52,18 +53,21 @@ function Pachong(){
     setTrigger(+new Date());
   }
 
+  function handleClickInstructions(event){
+    event.preventDefault()
+    setInstructionsTrigger(instructionsTrigger => !instructionsTrigger)
+  }
 
   return (
     <div className="pachong">
       <header className="App-header">
-        <h1>拉斯維加斯商業地區爬蟲</h1>
-        <h2>使用説明 Instructions</h2>
-        <p className="text-3xl font-bold underline" >先訪問這個網站 First visit this website
-        <a href="https://www.lvcnn.com/list.php" target="_blank" > LVCNN </a>
-        </p>
-        <p>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising) </p>
-        <p>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</p>
-        <p className='text-blue-400 font-extrabold'>Then copy the url at the top, and put it in the input box below</p>
+        <div className='flex justify-start p-3 bg-sky-200 rounded-md drop-shadow-xl '>
+          <h1 className="self-auto text-3xl font-bold hover:underline " >拉斯維加斯商業地區爬蟲🐛</h1>
+          <button className='transition ease-in-out delay-150 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 shadow-indigo-500/50 duration-300' onClick={handleClickInstructions} >
+            ❓
+          </button>
+        </div>
+        {instructionsTrigger && <InstructionsPage />}
         <form onSubmit={handleSubmit} >
           <label>LVCNN Crawler: 
             <br />
@@ -85,7 +89,7 @@ function DynamicTable({jsonData}) {
   //table heading
   const ThData = () => {
     return column.map((data) => {
-      return <th key={data} >{data}</th>
+      return <th className="border border-green-400 bg-green-300 " key={data} >{data}</th>
     })
   }
 
@@ -96,7 +100,7 @@ function DynamicTable({jsonData}) {
         <tr>
           {
             column.map((v) => {
-              return <td>{data[v]}</td>
+              return <td className='border border-green-200 bg-green-100' >{data[v]}</td>
             })
           }
         </tr>
@@ -105,8 +109,8 @@ function DynamicTable({jsonData}) {
   }
 
   return (
-    <table className="table">
-      <thead style={{backgroundColor : '#ADD8E6'}} >
+    <table className="border-separate border-spacing-x-2">
+      <thead >
         <tr>{ThData()}</tr>
       </thead>
       <tbody>
@@ -115,5 +119,21 @@ function DynamicTable({jsonData}) {
     </table>
   )
 }
+
+function InstructionsPage(){
+
+  return(
+    <div>
+      <h2>使用説明 Instructions</h2>
+      <p className="" >先訪問這個網站 First visit this website
+        <a href="https://www.lvcnn.com/list.php" target="_blank" > LVCNN </a>
+      </p>
+      <p>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising) </p>
+      <p>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</p>
+      <p className='text-blue-400 font-extrabold'>Then copy the url at the top, and put it in the input box below</p>
+    </div>
+  )
+}
+
 
   export default Pachong
