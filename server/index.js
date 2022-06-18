@@ -5,11 +5,13 @@ const path = require('path');
 const cors = require('cors');
 const { Console } = require('console');
 // console.log(typeof webScraper.webScraper())
-// Create an Express application
-const app = express();
 
 // Configure the app port
 const port = process.env.PORT || 3001;
+
+// Create an Express application
+const app = express();
+
 app.set('port', port);
 
 
