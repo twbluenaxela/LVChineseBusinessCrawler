@@ -30,7 +30,7 @@ app.use('/api', require('./proxy-api.js'));
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../build')));
 //this is for tailwind.
-app.use(express.static(path.join(__dirname, 'dist')));
+// app.use(express.static(path.join(__dirname, 'dist')));
 
 
 // Stop browser from sending requests to get the icon
