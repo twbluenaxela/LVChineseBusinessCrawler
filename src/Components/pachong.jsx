@@ -61,19 +61,19 @@ function Pachong(){
   return (
     <div className="pachong">
       <header className="App-header">
-        <div className='flex justify-start p-3 bg-sky-200 rounded-md drop-shadow-xl '>
+        <div className='flex justify-start p-3 bg-sky-200 rounded-md mb-3 shadow-lg '>
           <h1 className="self-auto text-3xl font-bold hover:underline " >拉斯維加斯商業地區爬蟲🐛</h1>
           <button className='transition ease-in-out delay-150 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 shadow-indigo-500/50 duration-300' onClick={handleClickInstructions} >
             ❓
           </button>
         </div>
         {instructionsTrigger && <InstructionsPage />}
-        <form onSubmit={handleSubmit} >
-          <label>LVCNN Crawler: 
+        <form onSubmit={handleSubmit} className="mb-4" >
+          <label><a href="https://www.lvcnn.com/list.php" target="_blank" className='font-extrabold underline' >LVCNN</a> Crawler:
             <br />
-            <input type="url" id="urlInput" name="urlInput" placeholder='Enter url here...' />
+            <input className='outline outline-offset-2 outline-sky-200 rounded-sm shadow-inner ' type="url" id="urlInput" name="urlInput" placeholder='Enter url here...' />
           </label>
-          <button type="submit">Submit</button>
+          <button className='ring ring-offset-2 ring-blue-500 bg-slate-400 rounded-sm ml-2 ' type="submit">Submit</button>
         </form>
       </header>
       <DynamicTable jsonData={!scrapedObjects[0] ? dummyObj : scrapedObjects} />
@@ -123,14 +123,16 @@ function DynamicTable({jsonData}) {
 function InstructionsPage(){
 
   return(
-    <div>
-      <h2>使用説明 Instructions</h2>
-      <p className="" >先訪問這個網站 First visit this website
-        <a href="https://www.lvcnn.com/list.php" target="_blank" > LVCNN </a>
-      </p>
-      <p>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising) </p>
-      <p>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</p>
-      <p className='text-blue-400 font-extrabold'>Then copy the url at the top, and put it in the input box below</p>
+    <div className='bg-amber-100 p-3 mt-3 mb-3 shadow-md transition-all duration-200' >
+      <h2 className='text-xl font-bold'>使用説明 Instructions</h2>
+      <ul className="list-disc list-inside">
+        <li className='font-medium'>先訪問這個網站 First visit this website
+          <a href="https://www.lvcnn.com/list.php" target="_blank" className='font-extrabold underline decoration-amber-300' > LVCNN</a>
+        </li>
+        <li className='font-medium'>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising)</li>
+        <li className='font-medium'>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</li>
+        <li className='font-medium'>Then copy the url at the top, and put it in the input box below</li>
+      </ul>
     </div>
   )
 }
