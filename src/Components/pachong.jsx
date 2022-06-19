@@ -32,6 +32,8 @@ function Pachong(){
     return (initialCategory)
   })
  
+  const categoriesPageUrl = "https://www.lvcnn.com/list.php"
+
 
   let dummyObj = [
     {
@@ -62,15 +64,6 @@ function Pachong(){
     axios
     .post("/api/scrape", {"url" : url})
     .then((response) => setScrapedObjects(response.data))
-  }
-
-  function fetchCategoryList(){
-    axios
-    .post("/api/category", {"url" : categoriesPageUrl})
-    .then((response) => {
-      // console.log(response.data)
-      console.log("Got it!")
-    })
   }
 
   function handleSubmit(event){
