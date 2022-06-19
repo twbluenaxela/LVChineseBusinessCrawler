@@ -176,11 +176,11 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
   }
 
   return(
-    <div>
-        <select id="chooseCategory" onChange={handleChange}>
+    <div className='w-full md:w-auto'>
+        <h1 className='text-xl font-bold'>請選擇要搜尋的類型</h1>
+        <select id="chooseCategory" onChange={handleChange} className="ring-4 ring-offset-2" >
         {CategoryOptions()}
         </select>
-        <button className='ring ring-offset-2 ring-blue-500 bg-slate-400 rounded-sm ml-2' type="submit">Submit</button>
     </div>
   )
 }
