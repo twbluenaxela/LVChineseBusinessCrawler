@@ -1,8 +1,6 @@
 // import {COMPANY_CHINESE_FIELD_NAME, COMPANY_ENGLISH_FIELD_NAME, ADDRESS_FIELD_NAME, PHONE_NUMBER_FIELD_NAME} from '../constants'
 import React from 'react';
 const axios = require('axios');
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
 
 /* 
 NOTE: you need to go here and request access by clicking the button.
@@ -32,8 +30,6 @@ function Pachong(){
     return (initialCategory)
   })
  
-  const categoriesPageUrl = "https://www.lvcnn.com/list.php"
-
 
   let dummyObj = [
     {
@@ -178,7 +174,6 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
     setUrlToPost("https://www.lvcnn.com/" + currentSelectedOption)
     setTrigger(+new Date());
   }
-
 
   return(
     <div>
