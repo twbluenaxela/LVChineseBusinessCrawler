@@ -19,6 +19,7 @@ const categoryScraper = (url) => {
         }))
 
         // console.log("Here are the categories!");
+
         return (categoryList);
       })
       .catch((error) => {

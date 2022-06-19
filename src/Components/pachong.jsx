@@ -1,6 +1,9 @@
 // import {COMPANY_CHINESE_FIELD_NAME, COMPANY_ENGLISH_FIELD_NAME, ADDRESS_FIELD_NAME, PHONE_NUMBER_FIELD_NAME} from '../constants'
 import React from 'react';
 const axios = require('axios');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
 /* 
 NOTE: you need to go here and request access by clicking the button.
 You can't try to fetch info from here directly because it
@@ -13,6 +16,9 @@ is to use a proxy server like the one below
 // const proxyLocalhostURL = "https://8080-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/"
 
 //https://medium.com/@stefanhyltoft/scraping-html-tables-with-nodejs-request-and-cheerio-e3c6334f661b
+
+
+// let lvcnnCategories = document.querySelectorAll("td > a[href^='list_group.php?id']")
 
 
 
@@ -56,6 +62,15 @@ function Pachong(){
     axios
     .post("/api/scrape", {"url" : url})
     .then((response) => setScrapedObjects(response.data))
+  }
+
+  function fetchCategoryList(){
+    axios
+    .post("/api/category", {"url" : categoriesPageUrl})
+    .then((response) => {
+      // console.log(response.data)
+      console.log("Got it!")
+    })
   }
 
   function handleSubmit(event){
@@ -135,7 +150,6 @@ function DynamicTable({jsonData}) {
 }
 
 function InstructionsPage(){
-
   return(
     <div className='bg-amber-100 p-3 mt-3 mb-3 shadow-md transition-all duration-200' >
       <h2 className='text-xl font-bold'>使用説明 Instructions</h2>
@@ -182,5 +196,6 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
     </div>
   )
 }
+
 
   export default Pachong
