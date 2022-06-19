@@ -29,9 +29,8 @@ router.post("/category", async (req, res) => {
   console.log(req.body.url)
   let categoryReqUrl = req.body.url;
   if (!categoryReqUrl) return res.sendStatus(400);
-  let fetchedCategories = await categoryScraper.categoryScraper(categoryReqUrl)
-  console.log("Sending back categories...")
-  console.log(fetchedCategories)
-  res.send(fetchedCategories)
-
-})
+  let fetchedCategories = await categoryScraper.categoryScraper(categoryReqUrl);
+  console.log("Sending back categories...");
+  // console.log(fetchedCategories);
+  res.send(fetchedCategories);
+});

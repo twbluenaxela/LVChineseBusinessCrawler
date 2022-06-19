@@ -12,12 +12,14 @@ const categoryScraper = (url) => {
           ...dom.window.document.querySelectorAll(
             "td > a[href^='list_group.php?id']"
           ),
-        ];
-        //only give back the ones with Chinese names.
-        // .filter(i => chineseRegex.test(i))
+        ].map(i => ({
+            CATEGORY_CHINESE_NAME : i.querySelector("h3").innerHTML,
+            CATEGORY_ENGLISH_NAME : i.querySelector("h5").innerHTML,
+            CATEGORY_PAGE_LINK : i.href
+        }))
 
-        console.log("Here are the categories!");
-        console.log(categoryList[0]);
+        // console.log("Here are the categories!");
+
         return (categoryList);
       })
       .catch((error) => {
