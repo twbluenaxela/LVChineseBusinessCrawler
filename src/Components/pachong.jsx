@@ -21,6 +21,12 @@ function Pachong(){
   const [scrapedObjects, setScrapedObjects] = React.useState({})
   const [apiTrigger,setTrigger] = React.useState(0);
   const [instructionsTrigger, setInstructionsTrigger] = React.useState(false)
+  const [categories, setCategories] = React.useState(() => {
+    const initialCategory = fetchCategories()
+    return (initialCategory)
+  })
+ 
+
   let dummyObj = [
     {
       COMPANY_CHINESE_FIELD_NAME: '聯合律師事務所',
@@ -30,19 +36,25 @@ function Pachong(){
     }
   ]
 
-  // let urlObj = {url: `https://www.lvcnn.com/list_group.php?id=166&shop_name=&cat=&page=1`}
-
-  //change between localhost and the gitpod url
-  //https://3001-twbluenaxel-lvchinesebu-dk524wi8o8z.ws-us47.gitpod.io/
-
   React.useEffect(() => {
     if(urlToPost){
       getScrapedObjects(urlToPost);
     }
   }, [apiTrigger])
 
+  function fetchCategories() {
+    const categoriesPageUrl = "https://www.lvcnn.com/list.php"
+    axios
+    .post("/api/category", {"url" : categoriesPageUrl})
+    .then((response) => {
+      // console.log(response.data)
+      setCategories(response.data)
+    })
+  }
+
   function getScrapedObjects(url){
-    axios.post("/api/scrape", {"url" : url})
+    axios
+    .post("/api/scrape", {"url" : url})
     .then((response) => setScrapedObjects(response.data))
   }
 
@@ -52,6 +64,7 @@ function Pachong(){
     setUrlToPost(submittedUrl);
     setTrigger(+new Date());
   }
+
 
   function handleClickInstructions(event){
     event.preventDefault()
@@ -68,6 +81,7 @@ function Pachong(){
           </button>
         </div>
         {instructionsTrigger && <InstructionsPage />}
+        {categories && <CategorySelector categories={categories} setUrlToPost={setUrlToPost} setTrigger={setTrigger} /> }
         <form onSubmit={handleSubmit} className="mb-4" >
           <label><a href="https://www.lvcnn.com/list.php" target="_blank" className='font-extrabold underline' >LVCNN</a> Crawler:
             <br />
@@ -137,5 +151,36 @@ function InstructionsPage(){
   )
 }
 
+function CategorySelector({categories, setUrlToPost, setTrigger}) {
+  // console.log("I am alive!")
+  const CategoryOptions = () => {
+    return categories.map((item) => {
+      return <option value={item.CATEGORY_PAGE_LINK} name={item.CATEGORY_CHINESE_NAME} id={item.CATEGORY_CHINESE_NAME} >{item.CATEGORY_CHINESE_NAME + " " + item.CATEGORY_ENGLISH_NAME}</option>
+    })
+  }
+
+  // const handleFormSubmit = (event) => {
+  //   const urlToSubmit = event.target.value
+  //   console.log(urlToSubmit)
+  // }
+
+  const handleChange = (event) => {
+    const currentSelectedOption = event.target.value
+    console.log("This is what you selected: ")
+    console.log(currentSelectedOption)
+    setUrlToPost("https://www.lvcnn.com/" + currentSelectedOption)
+    setTrigger(+new Date());
+  }
+
+
+  return(
+    <div>
+        <select id="chooseCategory" onChange={handleChange}>
+        {CategoryOptions()}
+        </select>
+        <button className='ring ring-offset-2 ring-blue-500 bg-slate-400 rounded-sm ml-2' type="submit">Submit</button>
+    </div>
+  )
+}
 
   export default Pachong
