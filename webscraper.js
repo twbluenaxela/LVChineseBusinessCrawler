@@ -25,7 +25,7 @@ const webScraper = (url) => {
       const dom = new JSDOM(response.data)
       let companyInfoArray = [... dom.window.document.querySelectorAll(".newsbox_12_xline_black")]
       .map(i =>  ({ 
-      "中文店名" : i.querySelector("div.black_12_bold").innerHTML,
+      "中文店名 Chinese" : i.querySelector("div.black_12_bold").innerHTML.replace(/<br>/gi, ''),
       "English Name" : i.querySelector("div.black_12_normal").innerHTML,
       "地址 Address" : i.querySelector("div.black_9_mini").innerHTML,
       "電話號碼 Phone Number" : i.querySelector("td.black_12_normal").innerHTML

@@ -33,10 +33,10 @@ function Pachong(){
 
   let dummyObj = [
     {
-      COMPANY_CHINESE_FIELD_NAME: '聯合律師事務所',
-      COMPANY_ENGLISH_FIELD_NAME: 'Parke Law Firm',
-      ADDRESS_FIELD_NAME: '4455 S. Jones Blvd., #1 Las Vegas, NV 89103',
-      PHONE_NUMBER_FIELD_NAME: '702-321-1187'
+      "中文店名 Chinese": '聯合律師事務所',
+      "English Name": 'Parke Law Firm',
+      "地址 Address": '4455 S. Jones Blvd., #1 Las Vegas, NV 89103',
+      "電話號碼 Phone Number": '702-321-1187'
     }
   ]
 
@@ -118,7 +118,7 @@ function DynamicTable({jsonData}) {
         <tr>
           {
             column.map((v) => {
-              return <td className='border border-green-200 bg-green-100' >{data[v]}</td>
+              return <td className='border border-green-200 bg-green-100' >{data[v].replace(/[&]amp[;]/gi,"&")}</td>
             })
           }
         </tr>
@@ -149,6 +149,11 @@ function InstructionsPage(){
         <li className='font-medium'>然後點擊一個類型(如:廣告設計)Then choose a category (ex: Advertising)</li>
         <li className='font-medium'>然後把上面的網址複製一下，之後可以粘貼到下面的輸入框框裏面</li>
         <li className='font-medium'>Then copy the url at the top, and put it in the input box below</li>
+        <li className='font-medium'></li>
+      </ul>
+      <h2 className='text-xl font-bold'>選擇類型</h2>
+      <ul className="list-disc list-inside">
+        <li className='font-medium'>您也可以嘗試直接選擇一個類型。選擇之後，會馬上給你打出一個表格。</li>
       </ul>
     </div>
   )
@@ -158,7 +163,14 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
   // console.log("I am alive!")
   const CategoryOptions = () => {
     return categories.map((item) => {
-      return <option value={item.CATEGORY_PAGE_LINK} name={item.CATEGORY_CHINESE_NAME} id={item.CATEGORY_CHINESE_NAME} >{item.CATEGORY_CHINESE_NAME + " " + item.CATEGORY_ENGLISH_NAME}</option>
+      /*
+      So ideally I could format the english name in the backend when its being fetched and thrown into an array
+      For some reason that works with the chinese name and removing of <br>
+      However when this is thrown back into the front end, it gets automatically converted to html again and that's
+      what I'm sifting through. &amp; will be there by default no matter what I do. Unless of course, I handle it back
+      here, when it's not html, but just a string in an object.
+      */
+      return <option value={item.CATEGORY_PAGE_LINK} name={item.CATEGORY_CHINESE_NAME} id={item.CATEGORY_CHINESE_NAME} >{item.CATEGORY_CHINESE_NAME + " " + item.CATEGORY_ENGLISH_NAME.replace(/[&]amp[;]/gi,"&")}</option>
     })
   }
 
@@ -178,7 +190,7 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
   return(
     <div className='w-full md:w-auto'>
         <h1 className='text-xl font-bold'>請選擇要搜尋的類型</h1>
-        <select id="chooseCategory" onChange={handleChange} className="ring-4 ring-offset-2" >
+        <select id="chooseCategory" onChange={handleChange} className="outline outline-4 outline-offset-2 outline-blue-300" >
         {CategoryOptions()}
         </select>
     </div>
