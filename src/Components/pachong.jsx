@@ -108,7 +108,7 @@ function Pachong(){
         */}
         
       </header>
-      <button onClick={handleCopyButton}>Copy data 複製到剪貼板</button>
+      <button className='outline outline-offset-2 outline-green-400 rounded-md m-3 bg-green-100' onClick={handleCopyButton}>Copy data 複製到剪貼板📋</button>
       <DynamicTable jsonData={!scrapedObjects[0] ? dummyObj : scrapedObjects} />
     </div>
   );
@@ -133,7 +133,7 @@ function DynamicTable({jsonData}) {
         <tr>
           {
             column.map((v) => {
-              return <td className='border border-green-200 bg-green-100' >{data[v].replace(/[&]amp[;]/gi,"&")}</td>
+              return <td className='border border-green-200 bg-green-100 m-3' >{data[v].replace(/[&]amp[;]/gi,"&")}</td>
             })
           }
         </tr>
@@ -203,7 +203,7 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
   }
 
   return(
-    <div className='w-full md:w-auto'>
+    <div className='w-full md:w-auto ml-3 mb-1'>
         <h1 className='text-xl font-bold'>請選擇要搜尋的類型</h1>
         <select id="chooseCategory" onChange={handleChange} className="outline outline-4 outline-offset-2 outline-blue-300" >
         {CategoryOptions()}
