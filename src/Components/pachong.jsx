@@ -77,7 +77,7 @@ function Pachong(){
 
   function handleCopyButton(event){
     event.preventDefault()
-    let tableData = document.querySelector("tbody").children
+    let tableData = document.querySelector("tbody").innerText
     console.log(tableData)
     navigator.clipboard.writeText(tableData)
   }
