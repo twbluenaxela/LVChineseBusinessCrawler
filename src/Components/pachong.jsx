@@ -204,7 +204,7 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
 
   return(
     <div className='w-full md:w-auto ml-3 mb-1'>
-        <h1 className='text-xl font-bold'>請選擇要搜尋的類型</h1>
+        <h1 className='text-xl font-bold mb-1'>請選擇要搜尋的類型</h1>
         <select id="chooseCategory" onChange={handleChange} className="outline outline-4 outline-offset-2 outline-blue-300" >
         {CategoryOptions()}
         </select>
