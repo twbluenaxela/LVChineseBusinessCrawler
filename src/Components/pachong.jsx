@@ -157,7 +157,8 @@ function InstructionsPage(){
   return(
     <div className='bg-amber-100 p-3 mt-3 mb-3 shadow-md transition-all duration-200' >
       <h2 className='text-xl font-bold'>使用説明 Instructions</h2>
-      <ul className="list-disc list-inside">
+      {/*
+            <ul className="list-disc list-inside">
         <li className='font-medium'>先訪問這個網站 First visit this website
           <a href="https://www.lvcnn.com/list.php" target="_blank" className='font-extrabold underline decoration-amber-300' > LVCNN</a>
         </li>
@@ -166,9 +167,13 @@ function InstructionsPage(){
         <li className='font-medium'>Then copy the url at the top, and put it in the input box below</li>
         <li className='font-medium'></li>
       </ul>
-      <h2 className='text-xl font-bold'>選擇類型</h2>
+      
+      */}
+
+      <h2 className='text-lg font-bold'>選擇類型</h2>
       <ul className="list-disc list-inside">
-        <li className='font-medium'>您也可以嘗試直接選擇一個類型。選擇之後，會馬上給你打出一個表格。</li>
+        <li className='font-medium'>選擇您想要查詢的類型。選擇之後，會馬上給你打出一個表格。</li>
+        <li className='font-medium'>選擇之後，會馬上給你打出一個表格。</li>
       </ul>
     </div>
   )
