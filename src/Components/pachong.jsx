@@ -172,8 +172,8 @@ function InstructionsPage(){
 
       <h2 className='text-lg font-bold'>選擇類型</h2>
       <ul className="list-disc list-inside">
-        <li className='font-medium'>選擇您想要查詢的類型。選擇之後，會馬上給你打出一個表格。</li>
-        <li className='font-medium'>選擇之後，會馬上給你打出一個表格。</li>
+        <li className='font-medium'>選擇您想要查詢的類型。</li>
+        <li className='font-medium'>選擇之後，下面會馬上給你打出一個表格。</li>
       </ul>
     </div>
   )
