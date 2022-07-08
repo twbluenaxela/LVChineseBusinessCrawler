@@ -1,6 +1,6 @@
 // import {COMPANY_CHINESE_FIELD_NAME, COMPANY_ENGLISH_FIELD_NAME, ADDRESS_FIELD_NAME, PHONE_NUMBER_FIELD_NAME} from '../constants'
-import React from 'react';
-const axios = require('axios');
+import React from "react";
+const axios = require("axios");
 
 /* 
 NOTE: you need to go here and request access by clicking the button.
@@ -15,84 +15,103 @@ is to use a proxy server like the one below
 
 //https://medium.com/@stefanhyltoft/scraping-html-tables-with-nodejs-request-and-cheerio-e3c6334f661b
 
-
 // let lvcnnCategories = document.querySelectorAll("td > a[href^='list_group.php?id']")
 
-
-
-function Pachong(){
-  const [urlToPost, setUrlToPost] = React.useState("")
-  const [scrapedObjects, setScrapedObjects] = React.useState({})
-  const [apiTrigger,setTrigger] = React.useState(0);
-  const [instructionsTrigger, setInstructionsTrigger] = React.useState(false)
-  const [categories, setCategories] = React.useState(() => {
-    const initialCategory = fetchCategories()
-    return (initialCategory)
-  })
- 
+function Pachong() {
+  const [urlToPost, setUrlToPost] = React.useState("");
+  const [scrapedObjects, setScrapedObjects] = React.useState({});
+  const [apiTrigger, setTrigger] = React.useState(0);
+  const [instructionsTrigger, setInstructionsTrigger] = React.useState(false);
+  const [categories, setCategories] = React.useState(null);
 
   let dummyObj = [
     {
-      "中文店名 Chinese": '聯合律師事務所',
-      "English Name": 'Parke Law Firm',
-      "地址 Address": '4455 S. Jones Blvd., #1 Las Vegas, NV 89103',
-      "電話號碼 Phone Number": '702-321-1187'
-    }
-  ]
+      "中文店名 Chinese": "聯合律師事務所",
+      "English Name": "Parke Law Firm",
+      "地址 Address": "4455 S. Jones Blvd., #1 Las Vegas, NV 89103",
+      "電話號碼 Phone Number": "702-321-1187",
+    },
+  ];
 
   React.useEffect(() => {
-    if(urlToPost){
+    fetchCategories();
+  }, []);
+
+  React.useEffect(() => {
+    if (urlToPost) {
       getScrapedObjects(urlToPost);
     }
-  }, [apiTrigger])
+  }, [apiTrigger]);
 
   function fetchCategories() {
-    const categoriesPageUrl = "https://www.lvcnn.com/list.php"
-    axios
-    .post("/api/category", {"url" : categoriesPageUrl})
-    .then((response) => {
+    const categoriesPageUrl = "https://www.lvcnn.com/list.php";
+    axios.post("/api/category", { url: categoriesPageUrl }).then((response) => {
       // console.log(response.data)
-      setCategories(response.data)
-    })
+      setCategories(response.data);
+    });
   }
 
-  function getScrapedObjects(url){
+  function getScrapedObjects(url) {
     axios
-    .post("/api/scrape", {"url" : url})
-    .then((response) => setScrapedObjects(response.data))
+      .post("/api/scrape", { url: url })
+      .then((response) => setScrapedObjects(response.data));
   }
 
-  function handleSubmit(event){
-    event.preventDefault()
-    const submittedUrl = event.currentTarget.elements.urlInput.value
+  function handleSubmit(event) {
+    event.preventDefault();
+    const submittedUrl = event.currentTarget.elements.urlInput.value;
     setUrlToPost(submittedUrl);
     setTrigger(+new Date());
   }
 
-
-  function handleClickInstructions(event){
-    event.preventDefault()
-    setInstructionsTrigger(instructionsTrigger => !instructionsTrigger)
+  function handleClickInstructions(event) {
+    event.preventDefault();
+    setInstructionsTrigger((instructionsTrigger) => !instructionsTrigger);
   }
 
-  function handleCopyButton(event){
-    event.preventDefault()
-    let tableData = document.querySelector("tbody").innerText
-    console.log(tableData)
-    navigator.clipboard.writeText(tableData)
+  function handleCopyButton(event) {
+    event.preventDefault();
+    let tableData = document.querySelector("tbody").innerText;
+    console.log(tableData);
+    navigator.clipboard.writeText(tableData);
   }
+
+  const CategoriesSkeletonLoader = () => {
+    return (
+      <div class="w-60 h-24 border-2 rounded-md mx-1 mt-2">
+        <div class="flex animate-pulse flex-row items-center h-full justify-center space-x-5">
+          <div class="w-12 bg-gray-300 h-12 rounded-full "></div>
+          <div class="flex flex-col space-y-3">
+            <div class="w-36 bg-gray-300 h-6 rounded-md "></div>
+            <div class="w-24 bg-gray-300 h-6 rounded-md "></div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="pachong">
       <header className="App-header">
-        <nav className='flex justify-start p-3 bg-sky-200 rounded-md mb-3 shadow-lg '>
-          <h1 className="self-auto text-3xl font-bold hover:underline " >拉斯維加斯商業地區爬蟲🐛</h1>
-          <button className='transition ease-in-out delay-150 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 shadow-indigo-500/50 duration-300' onClick={handleClickInstructions} >
+        <nav className="flex justify-start p-3 bg-sky-200 rounded-md mb-3 shadow-lg ">
+          <h1 className="self-auto text-3xl font-bold hover:underline ">
+            拉斯維加斯商業地區爬蟲🐛
+          </h1>
+          <button
+            className="transition ease-in-out delay-150 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 shadow-indigo-500/50 duration-300"
+            onClick={handleClickInstructions}
+          >
             🙍🏻‍♀️❓
           </button>
         </nav>
         {instructionsTrigger && <InstructionsPage />}
-        {categories && <CategorySelector categories={categories} setUrlToPost={setUrlToPost} setTrigger={setTrigger} /> }
+        {categories ?
+          <CategorySelector
+            categories={categories}
+            setUrlToPost={setUrlToPost}
+            setTrigger={setTrigger}
+          />
+        : <CategoriesSkeletonLoader />}
         {/*
         I've decided this is actually pretty misleading as a feature since I think people want to search for things. 
         So I've decided to comment it away for now. Maybe it'll be useful in the future. 
@@ -106,57 +125,64 @@ function Pachong(){
         </form>
         
         */}
-        
       </header>
-      <button className='outline outline-offset-2 outline-green-400 rounded-md m-3 bg-green-100' onClick={handleCopyButton}>Copy data 複製到剪貼板📋</button>
+      <button
+        className="outline outline-offset-2 outline-green-400 rounded-md m-3 bg-green-100"
+        onClick={handleCopyButton}
+      >
+        Copy data 複製到剪貼板📋
+      </button>
       <DynamicTable jsonData={!scrapedObjects[0] ? dummyObj : scrapedObjects} />
     </div>
   );
 }
 
-
-function DynamicTable({jsonData}) {
+function DynamicTable({ jsonData }) {
   //get table columns
   const column = Object.keys(jsonData[0]);
 
   //table heading
   const ThData = () => {
     return column.map((data) => {
-      return <th className="border border-green-400 bg-green-300 " key={data} >{data}</th>
-    })
-  }
+      return (
+        <th className="border border-green-400 bg-green-300 " key={data}>
+          {data}
+        </th>
+      );
+    });
+  };
 
   //table row
   const tdData = () => {
     return jsonData.map((data) => {
-      return(
+      return (
         <tr>
-          {
-            column.map((v) => {
-              return <td className='border border-green-200 bg-green-100 m-3' >{data[v].replace(/[&]amp[;]/gi,"&")}</td>
-            })
-          }
+          {column.map((v) => {
+            return (
+              <td className="border border-green-200 bg-green-100 m-3">
+                {data[v].replace(/[&]amp[;]/gi, "&")}
+              </td>
+            );
+          })}
         </tr>
-      )
-    })
-  }
+      );
+    });
+  };
 
   return (
     <table className="border-separate border-spacing-x-2">
-      <thead >
+      <thead>
         <tr>{ThData()}</tr>
       </thead>
-      <tbody className='tabledata'>
-        {tdData()}
-      </tbody>
+      <tbody className="tabledata">{tdData()}</tbody>
     </table>
-  )
+  );
 }
 
-function InstructionsPage(){
-  return(
-    <div className='bg-amber-100 p-3 mt-3 mb-3 shadow-md transition-all duration-200' >
-      <h2 className='text-xl font-bold'>使用説明 Instructions</h2>
+function InstructionsPage() {
+  return (
+    <div className="bg-amber-100 p-3 mt-3 mb-3 shadow-md transition-all duration-200">
+      <h2 className="text-xl font-bold">使用説明 Instructions</h2>
       {/*
             <ul className="list-disc list-inside">
         <li className='font-medium'>先訪問這個網站 First visit this website
@@ -170,16 +196,16 @@ function InstructionsPage(){
       
       */}
 
-      <h2 className='text-lg font-bold'>選擇類型</h2>
+      <h2 className="text-lg font-bold">選擇類型</h2>
       <ul className="list-disc list-inside">
-        <li className='font-medium'>選擇您想要查詢的類型。</li>
-        <li className='font-medium'>選擇之後，下面會馬上給你打出一個表格。</li>
+        <li className="font-medium">選擇您想要查詢的類型。</li>
+        <li className="font-medium">選擇之後，下面會馬上給你打出一個表格。</li>
       </ul>
     </div>
-  )
+  );
 }
 
-function CategorySelector({categories, setUrlToPost, setTrigger}) {
+function CategorySelector({ categories, setUrlToPost, setTrigger }) {
   // console.log("I am alive!")
   const CategoryOptions = () => {
     return categories.map((item) => {
@@ -190,9 +216,19 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
       what I'm sifting through. &amp; will be there by default no matter what I do. Unless of course, I handle it back
       here, when it's not html, but just a string in an object.
       */
-      return <option value={item.CATEGORY_PAGE_LINK} name={item.CATEGORY_CHINESE_NAME} id={item.CATEGORY_CHINESE_NAME} >{item.CATEGORY_CHINESE_NAME + " " + item.CATEGORY_ENGLISH_NAME.replace(/[&]amp[;]/gi,"&")}</option>
-    })
-  }
+      return (
+        <option
+          value={item.CATEGORY_PAGE_LINK}
+          name={item.CATEGORY_CHINESE_NAME}
+          id={item.CATEGORY_CHINESE_NAME}
+        >
+          {item.CATEGORY_CHINESE_NAME +
+            " " +
+            item.CATEGORY_ENGLISH_NAME.replace(/[&]amp[;]/gi, "&")}
+        </option>
+      );
+    });
+  };
 
   // const handleFormSubmit = (event) => {
   //   const urlToSubmit = event.target.value
@@ -200,22 +236,25 @@ function CategorySelector({categories, setUrlToPost, setTrigger}) {
   // }
 
   const handleChange = (event) => {
-    const currentSelectedOption = event.target.value
-    console.log("This is what you selected: ")
-    console.log(currentSelectedOption)
-    setUrlToPost("https://www.lvcnn.com/" + currentSelectedOption)
+    const currentSelectedOption = event.target.value;
+    console.log("This is what you selected: ");
+    console.log(currentSelectedOption);
+    setUrlToPost("https://www.lvcnn.com/" + currentSelectedOption);
     setTrigger(+new Date());
-  }
+  };
 
-  return(
-    <div className='w-full md:w-auto ml-3 mb-1'>
-        <h1 className='text-xl font-bold mb-1'>請選擇要搜尋的類型</h1>
-        <select id="chooseCategory" onChange={handleChange} className="outline outline-4 outline-offset-2 outline-blue-300" >
+  return (
+    <div className="w-full md:w-auto ml-3 mb-1">
+      <h1 className="text-xl font-bold mb-1">請選擇要搜尋的類型</h1>
+      <select
+        id="chooseCategory"
+        onChange={handleChange}
+        className="outline outline-4 outline-offset-2 outline-blue-300"
+      >
         {CategoryOptions()}
-        </select>
+      </select>
     </div>
-  )
+  );
 }
 
-
-  export default Pachong
+export default Pachong;
