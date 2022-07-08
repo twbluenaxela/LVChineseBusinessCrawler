@@ -22,7 +22,10 @@ function Pachong() {
   const [scrapedObjects, setScrapedObjects] = React.useState({});
   const [apiTrigger, setTrigger] = React.useState(0);
   const [instructionsTrigger, setInstructionsTrigger] = React.useState(false);
-  const [categories, setCategories] = React.useState(null);
+  const [categories, setCategories] = React.useState(() => {
+    const initialCategory = fetchCategories()
+    return (initialCategory)
+  });
 
   let dummyObj = [
     {
@@ -33,9 +36,8 @@ function Pachong() {
     },
   ];
 
-  React.useEffect(() => {
-    fetchCategories();
-  }, []);
+  // React.useEffect(() => {
+  // }, []);
 
   React.useEffect(() => {
     if (urlToPost) {
@@ -46,8 +48,9 @@ function Pachong() {
   function fetchCategories() {
     const categoriesPageUrl = "https://www.lvcnn.com/list.php";
     axios.post("/api/category", { url: categoriesPageUrl }).then((response) => {
-      // console.log(response.data)
+      console.log(response.data)
       setCategories(response.data);
+      // return (response.data)
     });
   }
 
